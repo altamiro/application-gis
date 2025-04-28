@@ -23,3 +23,5 @@ pnpm-debug.log*
 *.sw?
 .history
 .java-version
+
+package-lock.json
