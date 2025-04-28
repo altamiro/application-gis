@@ -26,7 +26,8 @@
       },
       
       enabled() {
-        return this.getToolById(TOOL_TYPES.POLYGON).enabled;
+        const tool = this.getToolById(TOOL_TYPES.POLYGON);
+        return tool && tool.enabled;
       }
     },
     
@@ -36,7 +37,11 @@
       activate() {
         if (!this.enabled) return;
         
+        // Ativa a ferramenta no store
         this.setActiveTool(TOOL_TYPES.POLYGON);
+        
+        // Notifica o console para depuração
+        console.log('PolygonTool ativado!');
       }
     }
   }

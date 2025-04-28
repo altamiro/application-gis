@@ -28,7 +28,7 @@
             CutTool
             EraseTool
         
-        .layer-selection(v-if="isDrawingTool")
+        .layer-selection(v-if="isDrawingTool && availableLayers.length > 0")
           h4 Current Layer
           el-select(v-model="selectedLayer" placeholder="Select Layer" size="small")
             el-option(
@@ -94,23 +94,28 @@
           TOOL_TYPES.FILL,
           TOOL_TYPES.ADD_FEATURE
         ];
-        return this.activeTool && drawingToolIds.includes(this.activeTool.id);
+        return this.activeTool && drawingToolIds.includes(this.activeTool);
       },
       
       availableLayers() {
         // Filter layers based on active tool
         if (!this.activeTool) return [];
         
-        if (this.activeTool.id === TOOL_TYPES.POINT) {
-          return this.layers.filter(layer => layer.geometryType === 'point');
-        } else if (this.activeTool.id === TOOL_TYPES.LINE) {
-          return this.layers.filter(layer => layer.geometryType === 'polyline');
-        } else if (this.activeTool.id === TOOL_TYPES.POLYGON || this.activeTool.id === TOOL_TYPES.FILL) {
-          return this.layers.filter(layer => 
-            layer.geometryType === 'polygon' || layer.geometryType === 'multipolygon'
-          );
+        switch(this.activeTool) {
+          case TOOL_TYPES.POINT:
+            return this.layers.filter(layer => layer.geometryType === 'point');
+          case TOOL_TYPES.LINE:
+            return this.layers.filter(layer => layer.geometryType === 'polyline');
+          case TOOL_TYPES.POLYGON:
+          case TOOL_TYPES.FILL:
+            return this.layers.filter(layer => 
+              layer.geometryType === 'polygon' || layer.geometryType === 'multipolygon'
+            );
+          case TOOL_TYPES.ADD_FEATURE:
+            return this.layers.filter(layer => layer.editable);
+          default:
+            return [];
         }
-        return this.layers;
       }
     },
     
@@ -130,9 +135,17 @@
       }
     },
     
+    created() {
+      // Make the $message available globally for tool components
+      window.$message = this.$message;
+    },
+    
     mounted() {
       // Set default active tool
       this.$store.dispatch('tools/setActiveTool', TOOL_TYPES.PAN);
+      
+      // Initialize tool availability based on layers
+      this.$store.dispatch('tools/updateToolsAvailability');
     },
     
     methods: {

@@ -27,7 +27,8 @@
       },
       
       enabled() {
-        return this.getToolById(TOOL_TYPES.POINT).enabled;
+        const tool = this.getToolById(TOOL_TYPES.POINT);
+        return tool && tool.enabled;
       }
     },
     
@@ -36,15 +37,6 @@
       
       activate() {
         if (!this.enabled) return;
-        
-        // If property area doesn't exist yet, show a message
-        if (!this.hasPropertyArea) {
-          this.$message({
-            message: 'Property Area must be drawn first',
-            type: 'warning'
-          });
-          return;
-        }
         
         this.setActiveTool(TOOL_TYPES.POINT);
       }

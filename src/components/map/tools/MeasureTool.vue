@@ -56,35 +56,33 @@
         measurementTypes: [
           { label: 'Area', value: 'area' },
           { label: 'Distance', value: 'distance' }
-        ],
-        activeMeasurement: null
+        ]
       };
     },
     
     computed: {
       ...mapGetters('tools', ['activeTool', 'getToolById']),
       ...mapState('tools', ['measureResult']),
-      ...mapGetters('layers', ['hasPropertyArea']),
       
       isActive() {
         return this.activeTool && this.activeTool.id === TOOL_TYPES.MEASURE;
       },
       
       enabled() {
-        return this.getToolById(TOOL_TYPES.MEASURE).enabled;
+        const tool = this.getToolById(TOOL_TYPES.MEASURE);
+        return tool && tool.enabled;
       }
     },
     
     watch: {
-      isActive(newValue) {
-        if (!newValue && this.activeMeasurement) {
+      isActive(newValue, oldValue) {
+        if (!newValue && oldValue) {
           this.deactivateMeasurement();
         }
       },
       
       measurementType(newValue) {
         if (this.isActive) {
-          this.deactivateMeasurement();
           this.activateMeasurement(newValue);
         }
       }
@@ -96,45 +94,36 @@
       activate() {
         if (!this.enabled) return;
         
-        // If property area doesn't exist yet, show a message
-        if (!this.hasPropertyArea) {
-          this.$message({
-            message: 'Property Area must be drawn first',
-            type: 'warning'
-          });
-          return;
-        }
-        
         this.setActiveTool(TOOL_TYPES.MEASURE);
-        this.activateMeasurement(this.measurementType);
+        this.$nextTick(() => {
+          this.activateMeasurement(this.measurementType);
+        });
       },
       
       activateMeasurement(type) {
-        // This will be implemented in the MapContainer component
         this.$root.$emit('activate-measurement', { type });
       },
       
       deactivateMeasurement() {
-        // This will be implemented in the MapContainer component
         this.$root.$emit('deactivate-measurement');
-        this.activeMeasurement = null;
       },
       
       clearMeasurement() {
         this.$store.commit('tools/SET_MEASURE_RESULT', null);
         this.deactivateMeasurement();
-        this.activateMeasurement(this.measurementType);
+        this.$nextTick(() => {
+          this.activateMeasurement(this.measurementType);
+        });
       },
       
       formatResult(value) {
         if (!value) return '0.00';
-        
         return parseFloat(value).toFixed(2);
       }
     },
     
     beforeDestroy() {
-      if (this.activeMeasurement) {
+      if (this.isActive) {
         this.deactivateMeasurement();
       }
     }
