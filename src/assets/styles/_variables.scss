@@ -1,0 +1,96 @@
+// Colors
+$primary-color: #409EFF;
+$secondary-color: #67C23A;
+$success-color: #67C23A;
+$warning-color: #E6A23C;
+$danger-color: #F56C6C;
+$info-color: #909399;
+
+// Text colors
+$primary-text-color: #303133;
+$regular-text-color: #606266;
+$secondary-text-color: #909399;
+$placeholder-text-color: #C0C4CC;
+
+// Border colors
+$border-color-base: #DCDFE6;
+$border-color-light: #E4E7ED;
+$border-color-lighter: #EBEEF5;
+$border-color-extra-light: #F2F6FC;
+
+// Background colors
+$background-color-base: #F5F7FA;
+$background-color-white: #FFFFFF;
+
+// Layer colors
+$property-area-fill: rgba(0, 0, 0, 0.1);
+$property-area-outline: rgba(0, 0, 0, 0.7);
+$property-headquarters-color: rgba(255, 0, 0, 1);
+$consolidated-area-fill: rgba(255, 165, 0, 0.5);
+$consolidated-area-outline: rgba(255, 165, 0, 0.8);
+$native-vegetation-fill: rgba(0, 128, 0, 0.5);
+$native-vegetation-outline: rgba(0, 128, 0, 0.8);
+$fallow-area-fill: rgba(210, 180, 140, 0.5);
+$fallow-area-outline: rgba(210, 180, 140, 0.8);
+$anthropized-area-fill: rgba(255, 0, 0, 0.5);
+$anthropized-area-outline: rgba(255, 0, 0, 0.8);
+
+// Typography
+$font-family-base: 'Avenir', Helvetica, Arial, sans-serif;
+$font-size-extra-large: 20px;
+$font-size-large: 18px;
+$font-size-medium: 16px;
+$font-size-base: 14px;
+$font-size-small: 13px;
+$font-size-extra-small: 12px;
+
+$font-weight-primary: 500;
+$font-weight-secondary: 400;
+$font-line-height-primary: 24px;
+$font-line-height-secondary: 16px;
+
+// Border
+$border-radius-base: 4px;
+$border-radius-small: 2px;
+$border-width-base: 1px;
+$border-width-large: 2px;
+$border-style-base: solid;
+
+// Shadow
+$box-shadow-base: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+$box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
+// Sizing
+$spacing-base: 16px;
+$spacing-small: 8px;
+$spacing-extra-small: 4px;
+$spacing-large: 24px;
+$spacing-extra-large: 32px;
+
+// Z-index
+$z-index-normal: 1;
+$z-index-above: 10;
+$z-index-tooltip: 20;
+$z-index-fixed: 30;
+$z-index-modal: 40;
+$z-index-popover: 50;
+$z-index-dropdown: 60;
+$z-index-overlay: 90;
+
+// Transitions
+$transition-duration-base: 0.3s;
+$transition-duration-fast: 0.15s;
+$transition-timing-function-base: ease;
+
+// Breakpoints
+$screen-xs: 480px;
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+$screen-xl: 1920px;
+
+// Component dimensions
+$header-height: 60px;
+$toolbar-width: 200px;
+$layer-panel-width: 250px;
+$area-board-width: 350px;
